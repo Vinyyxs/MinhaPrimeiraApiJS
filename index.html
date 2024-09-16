@@ -10,17 +10,20 @@
 
 <body>
     <h1>Formulário de Inscrição</h1>
-    <form id="formularioInscricao">
+    <form id="meuFormulario">
         <label for="nome">Nome:</label>
-        <input type="text" id="nome" class="input-field" required>
-
+        <input type="text" id="nome" name="nome" required minlength="3" maxlength="120" pattern="[A-Za-zÀ-ÿ ]+" title="O nome deve conter apenas letras." />
+        <br>
+        <br>
         <label for="email">Email:</label>
-        <input type="email" id="email" class="input-field" required>
-
-        <label for="idade">Idade:</label>
-        <input type="number" id="idade" class="input-field" required>
-
-        <button type="submit" class="submit-button">Enviar</button>
+        <input type="email" id="email" name="email" required  title="Por favor, insira um email válido." />
+        <br>
+        <br>
+        <label for="dataNascimento">Data de Nascimento:</label>
+        <input type="date" id="dataNascimento" name="dataNascimento" required pattern="\d{2}/\d{2}/\d{4}" title="Formato: DD/MM/AAAA" />
+        <br>
+        <br>
+        <button type="submit">Enviar</button>
     </form>
 
     <script src="script.js"></script>
