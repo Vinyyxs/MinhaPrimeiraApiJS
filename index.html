@@ -12,20 +12,34 @@
     <h1>Formulário de Inscrição</h1>
     <form id="meuFormulario">
         <label for="nome">Nome:</label>
-        <input type="text" id="nome" name="nome" required minlength="3" maxlength="120" pattern="[A-Za-zÀ-ÿ ]+" title="O nome deve conter apenas letras." />
+        <input type="text" id="nome" name="nome" required minlength="3" maxlength="120" pattern="[A-Za-zÀ-ÿ ]+"
+            title="O nome deve conter apenas letras." />
         <br>
         <br>
         <label for="email">Email:</label>
-        <input type="email" id="email" name="email" required  title="Por favor, insira um email válido." />
+        <input type="email" id="email" name="email" required title="Por favor, insira um email válido." />
         <br>
         <br>
         <label for="dataNascimento">Data de Nascimento:</label>
-        <input type="date" id="dataNascimento" name="dataNascimento" required pattern="\d{2}/\d{2}/\d{4}" title="Formato: DD/MM/AAAA" />
+        <input type="date" id="dob" name="dataNascimento" required pattern="\d{2}/\d{2}/\d{4}"
+            title="Formato: DD/MM/AAAA" />
         <br>
         <br>
         <button type="submit">Enviar</button>
     </form>
 
+    <table id="tabelaDados"  border="1">
+        <thead>
+            <tr>
+                <th>Nome</th>
+                <th>Email</th>
+                <th>Data de Nascimento</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Dados serão inseridos aqui -->
+        </tbody>
+    </table>
     <script src="script.js"></script>
 </body>
 
