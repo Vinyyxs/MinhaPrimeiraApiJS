@@ -65,7 +65,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function loadPeople() {
         const savedPeople = localStorage.getItem('people');
         if (savedPeople) {
-            const peopleList = JSON.parse(savedPeople); // Converte de volta para um array de objetos
+            const peopleList = JSON.parse(savedPeople);
             peopleList.forEach(person => {
                 addPersonToTable(person.name, person.email, person.dob);
             });
@@ -78,69 +78,75 @@ document.addEventListener('DOMContentLoaded', () => {
         const nameCell = newRow.insertCell(0);
         const emailCell = newRow.insertCell(1);
         const dobCell = newRow.insertCell(2);
+        const actionCell = newRow.insertCell(3);
+
         nameCell.textContent = name;
         emailCell.textContent = email;
         dobCell.textContent = dob;
 
+        const editButton = document.createElement('button');
+        editButton.textContent = 'Editar';
+        editButton.classList.add('editButton');
+        actionCell.appendChild(editButton);
+
+        editButton.addEventListener('click', function () {
+            // Ao clicar no botão, atualiza os dados com prompts
+            const newName = prompt("Atualize o nome:", nameCell.textContent);
+            const newEmail = prompt("Atualize o email:", emailCell.textContent);
+            const newDob = prompt("Atualize a data de nascimento:", dobCell.textContent);
+
+            if (newName) {
+                nameCell.textContent = newName;
+            }
+            if (newEmail) {
+                emailCell.textContent = newEmail;
+            }
+            if (newDob) {
+                dobCell.textContent = newDob;
+            }
+
+            // Atualiza o localStorage
+            updateLocalStorage();
+        });
     }
 
-    // Carrega as pessoas salvas ao iniciar a página
-    loadPeople();
-
-    // Função que salva uma pessoa no localStorage
+    // Função para salvar a pessoa no localStorage
     function savePerson(name, email, dob) {
         const savedPeople = localStorage.getItem('people');
-        const peopleList = savedPeople ? JSON.parse(savedPeople) : []; // Converte ou cria uma lista nova
-        peopleList.push({ name, email, dob }); // Adiciona nova pessoa
-        localStorage.setItem('people', JSON.stringify(peopleList)); // Salva a lista atualizada
+        const peopleList = savedPeople ? JSON.parse(savedPeople) : [];
+        peopleList.push({ name, email, dob });
+        localStorage.setItem('people', JSON.stringify(peopleList));
     }
 
+    // Função para atualizar o localStorage com os dados da tabela
+    function updateLocalStorage() {
+        const updatedPeople = [];
+        for (let i = 0; i < peopleTable.rows.length; i++) {
+            const row = peopleTable.rows[i];
+            updatedPeople.push({
+                name: row.cells[0].textContent,
+                email: row.cells[1].textContent,
+                dob: row.cells[2].textContent
+            });
+        }
+        localStorage.setItem('people', JSON.stringify(updatedPeople));
+    }
+
+    loadPeople();
+
+    // Adiciona nova pessoa ao enviar o formulário
     form.addEventListener('submit', (event) => {
-        event.preventDefault(); // Evita o envio do formulário
+        event.preventDefault();
+        const name = document.getElementById('nome').value.trim();
+        const email = document.getElementById('email').value;
+        const dob = document.getElementById('dob').value;
 
-        const nameInput = document.getElementById('nome');
-        const emailInput = document.getElementById('email');
-        const dobInput = document.getElementById('dob');
-
-        const name = nameInput.value.trim();
-        const email = emailInput.value;
-        const dob = dobInput.value;
-
-        // Limpa as mensagens de erro personalizadas
-        nameInput.setCustomValidity('');
-        emailInput.setCustomValidity('');
-        dobInput.setCustomValidity('');
-
-        // Validações personalizadas
-        const nameRegex = /^[A-Za-zÀ-ÿ]+$/;
-        if (name === '') {
-            nameInput.setCustomValidity('O campo Nome não pode estar vazio.');
-        } else if (name.length < 3 || name.length > 120) {
-            nameInput.setCustomValidity('O Nome deve ter entre 3 e 120 caracteres.');
-        } else if (!nameRegex.test(name)) {
-            nameInput.setCustomValidity('O Nome deve conter apenas letras.');
-        }
-
-        if (!dob) {
-            dobInput.setCustomValidity('O campo Data de Nascimento não pode estar vazio.');
-        }
-
-        // Se o formulário for válido, salva os dados e adiciona à tabela
         if (form.checkValidity()) {
-            console.log('Nome:', name);
-            console.log('Email:', email);
-            console.log('Data de Nascimento:', dob);
-
-            // Adiciona a pessoa à tabela
             addPersonToTable(name, email, dob);
-
-            // Salva a pessoa no localStorage
             savePerson(name, email, dob);
-
-            // Limpa o formulário
             form.reset();
         } else {
-            console.log('Existem erros no formulário.');
+            alert("Por favor, corrija os erros no formulário.");
         }
     });
 });

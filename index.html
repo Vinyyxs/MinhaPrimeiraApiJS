@@ -37,9 +37,48 @@
             </tr>
         </thead>
         <tbody>
-            <!-- Dados serão inseridos aqui -->
+            <tr>
+                <td class="name">João</td>
+                <td class="email">joao@example.com</td>
+                <td class="dob">01/01/2000</td>
+                <td><button class="editButton">Editar</button></td>
+            </tr>
+            <tr>
+                <td class="name">Maria</td>
+                <td class="email">maria@example.com</td>
+                <td class="dob">02/02/1995</td>
+                <td><button class="editButton">Editar</button></td>
+            </tr>
         </tbody>
     </table>
+
+    <script>
+        // Seleciona todos os botões de edição
+        const editButtons = document.querySelectorAll('.editButton');
+
+        // Adiciona evento de clique a cada botão
+        editButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                // Obtém a linha do botão clicado
+                const row = this.parentNode.parentNode;
+
+                // Seleciona os elementos de nome, email e data de nascimento
+                const nameElement = row.querySelector('.name');
+                const emailElement = row.querySelector('.email');
+                const dobElement = row.querySelector('.dob');
+
+                // Prompt para atualizar os dados
+                const newName = prompt("Atualize o nome:", nameElement.textContent);
+                const newEmail = prompt("Atualize o email:", emailElement.textContent);
+                const newDob = prompt("Atualize a data de nascimento:", dobElement.textContent);
+
+                // Atualiza os elementos se novos valores forem fornecidos
+                if (newName) nameElement.textContent = newName;
+                if (newEmail) emailElement.textContent = newEmail;
+                if (newDob) dobElement.textContent = newDob;
+            });
+        });
+    </script>
     <script src="script.js"></script>
 </body>
 
