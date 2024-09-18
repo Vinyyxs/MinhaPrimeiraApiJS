@@ -61,7 +61,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const form = document.getElementById('meuFormulario');
     const peopleTable = document.getElementById('tabelaDados').getElementsByTagName('tbody')[0];
 
-    // Função para carregar pessoas do localStorage
+    localStorage.removeItem('people');
+
     function loadPeople() {
         const savedPeople = localStorage.getItem('people');
         if (savedPeople) {
@@ -72,7 +73,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // Função para adicionar uma pessoa na tabela
     function addPersonToTable(name, email, dob) {
         const newRow = peopleTable.insertRow();
         const nameCell = newRow.insertCell(0);
@@ -86,31 +86,21 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const editButton = document.createElement('button');
         editButton.textContent = 'Editar';
-        editButton.classList.add('editButton');
         actionCell.appendChild(editButton);
 
         editButton.addEventListener('click', function () {
-            // Ao clicar no botão, atualiza os dados com prompts
             const newName = prompt("Atualize o nome:", nameCell.textContent);
             const newEmail = prompt("Atualize o email:", emailCell.textContent);
             const newDob = prompt("Atualize a data de nascimento:", dobCell.textContent);
 
-            if (newName) {
-                nameCell.textContent = newName;
-            }
-            if (newEmail) {
-                emailCell.textContent = newEmail;
-            }
-            if (newDob) {
-                dobCell.textContent = newDob;
-            }
+            if (newName) nameCell.textContent = newName;
+            if (newEmail) emailCell.textContent = newEmail;
+            if (newDob) dobCell.textContent = newDob;
 
-            // Atualiza o localStorage
-            updateLocalStorage();
+            updateLocalStorage(); // Atualiza o localStorage após a edição
         });
     }
 
-    // Função para salvar a pessoa no localStorage
     function savePerson(name, email, dob) {
         const savedPeople = localStorage.getItem('people');
         const peopleList = savedPeople ? JSON.parse(savedPeople) : [];
@@ -118,7 +108,6 @@ document.addEventListener('DOMContentLoaded', () => {
         localStorage.setItem('people', JSON.stringify(peopleList));
     }
 
-    // Função para atualizar o localStorage com os dados da tabela
     function updateLocalStorage() {
         const updatedPeople = [];
         for (let i = 0; i < peopleTable.rows.length; i++) {
@@ -134,7 +123,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     loadPeople();
 
-    // Adiciona nova pessoa ao enviar o formulário
     form.addEventListener('submit', (event) => {
         event.preventDefault();
         const name = document.getElementById('nome').value.trim();
