@@ -79,25 +79,34 @@ document.addEventListener('DOMContentLoaded', () => {
         const emailCell = newRow.insertCell(1);
         const dobCell = newRow.insertCell(2);
         const actionCell = newRow.insertCell(3);
-
+    
         nameCell.textContent = name;
         emailCell.textContent = email;
         dobCell.textContent = dob;
-
+    
         const editButton = document.createElement('button');
         editButton.textContent = 'Editar';
         actionCell.appendChild(editButton);
-
+    
+        const removeButton = document.createElement('button');
+        removeButton.textContent = 'Remover';
+        actionCell.appendChild(removeButton);
+    
         editButton.addEventListener('click', function () {
             const newName = prompt("Atualize o nome:", nameCell.textContent);
             const newEmail = prompt("Atualize o email:", emailCell.textContent);
             const newDob = prompt("Atualize a data de nascimento:", dobCell.textContent);
-
+    
             if (newName) nameCell.textContent = newName;
             if (newEmail) emailCell.textContent = newEmail;
             if (newDob) dobCell.textContent = newDob;
-
+    
             updateLocalStorage(); // Atualiza o localStorage após a edição
+        });
+    
+        removeButton.addEventListener('click', function () {
+            newRow.remove(); // Remove a linha da tabela
+            updateLocalStorage(); // Atualiza o localStorage após a remoção
         });
     }
 
