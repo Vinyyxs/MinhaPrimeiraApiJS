@@ -9,38 +9,50 @@
 </head>
 
 <body>
-    <h1>Formulário de Inscrição</h1>
-    <form id="meuFormulario">
-        <label for="nome">Nome:</label>
-        <input type="text" id="nome" name="nome" required minlength="3" maxlength="120" pattern="[A-Za-zÀ-ÿ ]+"
-            title="O nome deve conter apenas letras." />
-        <br>
-        <br>
-        <label for="email">Email:</label>
-        <input type="email" id="email" name="email" required title="Por favor, insira um email válido." />
-        <br>
-        <br>
-        <label for="dataNascimento">Data de Nascimento:</label>
-        <input type="date" id="dob" name="dataNascimento" required pattern="\d{2}/\d{2}/\d{4}"
-            title="Formato: DD/MM/AAAA" />
-        <br>
-        <br>
-        <button type="submit">Enviar</button>
-    </form>
+    <header>
+        <h1>Formulário de Inscrição</h1>
+    </header>
 
-    <table id="tabelaDados"  border="1">
-        <thead>
-            <tr>
-                <th>Nome</th>
-                <th>Email</th>
-                <th>Data de Nascimento</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-            </tr>
-        </tbody>
-    </table>
+    <main>
+        <form id="meuFormulario" aria-labelledby="formTitle">
+            <h2 id="formTitle" class="visually-hidden">Preencha o formulário abaixo</h2>
+            <label for="nome">Nome:</label>
+            <input type="text" id="nome" name="nome" required minlength="3" maxlength="120" pattern="[A-Za-zÀ-ÿ ]+"
+                title="O nome deve conter apenas letras." aria-describedby="nomeHelp" />
+            <div id="nomeHelp" class="visually-hidden">Insira seu nome completo.</div>
+            <br>
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required title="Por favor, insira um email válido." />
+            <br>
+            <label for="dataNascimento">Data de Nascimento:</label>
+            <input type="date" id="dob" name="dataNascimento" required
+                title="Formato: DD/MM/AAAA" />
+            <br>
+            <button type="submit">Enviar</button>
+        </form>
+
+        <section aria-labelledby="tabelaTitle">
+            <h2 id="tabelaTitle">Dados Cadastrados</h2>
+            <table id="tabelaDados" border="1" aria-describedby="tabelaDescription">
+                <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th>Email</th>
+                        <th>Data de Nascimento</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                    </tr>
+                </tbody>
+            </table>
+            <div id="tabelaDescription" class="visually-hidden">Esta tabela mostra os dados cadastrados.</div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Vinyciusss. Todos os direitos reservados.</p>
+    </footer>
 
     <script src="script.js"></script>
 </body>
